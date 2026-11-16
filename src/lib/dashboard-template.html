@@ -102,58 +102,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-prim
     </div>
   </div>
 </div>
-<script src="js/common.js"></script>
-<script src="js/alertas.js"></script>
 <script>
-const STATUS_MAP = {
-  PENDING:['badge-pending','Aguardando'],
-  PREPARING:['badge-preparing','Preparando'],
-  READY:['badge-ready','Pronto'],
-  CLOSED:['badge-closed','Fechado']
-};
-
-async function loadDashboard() {
-  const r = await apiCall('/dashboard/stats');
-  if (r?.ok) {
-    const s = r.data.stats;
-    document.getElementById('statRevenue').textContent = formatCurrency(s.todayRevenue);
-    document.getElementById('statOrders').textContent = s.todayOrders;
-    document.getElementById('statTables').textContent = s.occupiedTables;
-    document.getElementById('statActive').textContent = s.activeOrders;
-  }
-  const hoje = new Date().toISOString().split('T')[0];
-  const r2 = await apiCall('/orders?date=' + hoje);
-  if (r2?.ok) {
-    const orders = r2.data.orders.sort((a,b) => new Date(b.createdAt)-new Date(a.createdAt)).slice(0,8);
-    if (orders.length) {
-      document.getElementById('recentOrders').innerHTML = orders.map(o => {
-        const [cls, label] = STATUS_MAP[o.status] || ['badge-closed', o.status];
-        return `<div class="order-item">
-          <div class="order-table-num">${o.table?.number || '—'}</div>
-          <div class="order-info">
-            <div class="order-info-top">${o.table?.number ? 'Mesa '+o.table.number : (o.customerName||'Cliente')}</div>
-            <div class="order-info-sub">${formatDateTime(o.createdAt)}</div>
-          </div>
-          <div style="text-align:right">
-            <div class="order-value">${formatCurrency(o.total)}</div>
-            <div class="badge ${cls}">${label}</div>
-          </div>
-        </div>`;
-      }).join('');
-    }
-  }
-}
-
-const user = getUser();
-if (user) {
-  document.getElementById('userName').textContent = user.name;
-  document.getElementById('userRole').textContent = user.role;
-  document.getElementById('userAvatar').textContent = user.name[0];
-}
-document.getElementById('btnLogout').addEventListener('click', logout);
-loadDashboard();
-setInterval(loadDashboard, 30000);
+document.getElementById('btnLogout').addEventListener('click', () => parent.postMessage('brasa:logout', '*'));
+document.querySelectorAll('.nav-item').forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault();
+    if (!link.classList.contains('active')) alert('Esta página ainda não foi enviada.');
+  });
+});
 </script>
-
-
 </body></html>

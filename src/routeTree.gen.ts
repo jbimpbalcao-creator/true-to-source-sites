@@ -10,33 +10,69 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardDothtmlRouteImport } from './routes/dashboard[.]html'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as DesktopPagesLoginDothtmlRouteImport } from './routes/desktop.pages.login[.]html'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardDothtmlRoute = DashboardDothtmlRouteImport.update({
+  id: '/dashboard.html',
+  path: '/dashboard.html',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesktopPagesLoginDothtmlRoute =
+  DesktopPagesLoginDothtmlRouteImport.update({
+    id: '/desktop/pages/login.html',
+    path: '/desktop/pages/login.html',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard.html': typeof DashboardDothtmlRoute
+  '/login': typeof LoginRoute
+  '/desktop/pages/login.html': typeof DesktopPagesLoginDothtmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard.html': typeof DashboardDothtmlRoute
+  '/login': typeof LoginRoute
+  '/desktop/pages/login.html': typeof DesktopPagesLoginDothtmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard.html': typeof DashboardDothtmlRoute
+  '/login': typeof LoginRoute
+  '/desktop/pages/login.html': typeof DesktopPagesLoginDothtmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/dashboard.html' | '/login' | '/desktop/pages/login.html'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/dashboard.html' | '/login' | '/desktop/pages/login.html'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard.html'
+    | '/login'
+    | '/desktop/pages/login.html'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardDothtmlRoute: typeof DashboardDothtmlRoute
+  LoginRoute: typeof LoginRoute
+  DesktopPagesLoginDothtmlRoute: typeof DesktopPagesLoginDothtmlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +84,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard.html': {
+      id: '/dashboard.html'
+      path: '/dashboard.html'
+      fullPath: '/dashboard.html'
+      preLoaderRoute: typeof DashboardDothtmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desktop/pages/login.html': {
+      id: '/desktop/pages/login.html'
+      path: '/desktop/pages/login.html'
+      fullPath: '/desktop/pages/login.html'
+      preLoaderRoute: typeof DesktopPagesLoginDothtmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardDothtmlRoute: DashboardDothtmlRoute,
+  LoginRoute: LoginRoute,
+  DesktopPagesLoginDothtmlRoute: DesktopPagesLoginDothtmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application rules
+- Keep the original dashboard HTML behind a session-checked server function, rendered in a sandboxed frame; this preserves the supplied design without exposing protected content as a public asset.
+- Fixed entry uses server-only credentials and an encrypted HttpOnly session; never use browser storage or the legacy missing login redirect as the access boundary.
