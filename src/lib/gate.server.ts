@@ -8,12 +8,20 @@ export function matchesCredential(input: string, expected: string) {
   );
 }
 
+export const gateCookieOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none" as const,
+  partitioned: true,
+  path: "/",
+};
+
 export async function gateSession(secret: string) {
   setResponseHeader("Cache-Control", "no-store");
   return useSession<{ unlocked?: boolean }>({
     password: secret,
     name: "brasa-gate",
     maxAge: 60 * 60 * 24 * 7,
-    cookie: { httpOnly: true, secure: true, sameSite: "lax", path: "/" },
+    cookie: gateCookieOptions,
   });
 }

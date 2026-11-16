@@ -1,8 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { matchesCredential } from "@/lib/gate.server";
+import { gateCookieOptions, matchesCredential } from "@/lib/gate.server";
 import { gateSchema } from "@/lib/gate-schema";
 
 describe("Fixed entry", () => {
+  it("keeps the encrypted session available in a cross-site preview frame", () => {
+    expect(gateCookieOptions.sameSite).toBe("none");
+    expect(gateCookieOptions.partitioned).toBe(true);
+    expect(gateCookieOptions.secure).toBe(true);
+    expect(gateCookieOptions.httpOnly).toBe(true);
+  });
   it("accepts an exact credential match", () => {
     expect(matchesCredential("test-only-value", "test-only-value")).toBe(true);
   });
