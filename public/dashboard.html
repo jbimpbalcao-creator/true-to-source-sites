@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Sabor na Brasa</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0f0f17;--surface:#1a1a2e;--surface2:#22223a;--border:rgba(255,255,255,0.06);--text-primary:#fff;--text-muted:rgba(255,255,255,0.45);--brand:#ff6b35;--brand2:#ff4500;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;display:flex;}
+.sidebar{width:200px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;height:100vh;z-index:100;}
+.sidebar-brand{padding:20px 16px;border-bottom:1px solid var(--border);}
+.brand-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff;}
+.brand-sub{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.nav{padding:12px 10px;flex:1;}
+.nav-section{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;padding:8px 6px 4px;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:9px;text-decoration:none;color:rgba(255,255,255,0.45);font-size:13px;font-weight:500;margin-bottom:1px;transition:all .15s;}
+.nav-item:hover{background:rgba(255,255,255,0.05);color:#fff;}
+.nav-item.active{background:rgba(255,107,53,0.15);color:var(--brand);}
+.sidebar-footer{padding:12px 10px;border-top:1px solid var(--border);}
+.btn-logout{width:100%;padding:10px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:9px;color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;}
+.main{margin-left:200px;flex:1;padding:24px;}
+.page-header{margin-bottom:24px;}
+.page-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;}
+.page-sub{font-size:13px;color:var(--text-muted);margin-top:4px;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.stat-label{font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.stat-value{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff;}
+.stat-icon{font-size:22px;margin-bottom:8px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.card-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;margin-bottom:16px;}
+.order-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.order-item:last-child{border-bottom:none;}
+.order-table-num{width:36px;height:36px;background:rgba(255,107,53,0.15);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--brand);}
+.order-info{flex:1;}
+.order-info-top{font-size:13px;font-weight:600;}
+.order-info-sub{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.order-value{font-size:13px;font-weight:700;color:var(--brand);}
+.badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;}
+.badge-pending{background:rgba(245,158,11,0.1);color:#f59e0b;}
+.badge-preparing{background:rgba(59,130,246,0.1);color:#3b82f6;}
+.badge-ready{background:rgba(34,197,94,0.1);color:#22c55e;}
+.badge-closed{background:rgba(255,255,255,0.05);color:var(--text-muted);}
+.empty-state{text-align:center;padding:40px;color:var(--text-muted);}
+.empty-icon{font-size:32px;margin-bottom:8px;}
+.user-pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:9px;padding:8px 10px;margin-bottom:12px;}
+.user-avatar{width:28px;height:28px;background:var(--brand);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:#fff;}
+.user-name{font-size:12px;font-weight:600;}
+.user-role{font-size:10px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">🔥 Sabor na Brasa</div>
+    <div class="brand-sub">Painel de Gestão</div>
+  </div>
+  <div class="nav">
+    <div class="user-pill">
+      <div class="user-avatar" id="userAvatar">A</div>
+      <div><div class="user-name" id="userName">Admin</div><div class="user-role" id="userRole">ADMIN</div></div>
+    </div>
+    <div class="nav-section">Principal</div>
+    <a href="dashboard.html" class="nav-item active">📊 Dashboard</a>
+    <a href="pedidos.html" class="nav-item">📋 Pedidos</a>
+    <a href="tables.html" class="nav-item">🍽 Mesas</a>
+    <a href="delivery-painel.html" class="nav-item">🛵 Delivery</a>
+    <div class="nav-section">Gestão</div>
+    <a href="products.html" class="nav-item">🍖 Produtos</a>
+    <a href="promocoes.html" class="nav-item">🔥 Promoções</a>
+    <a href="clientes.html" class="nav-item">👥 Clientes</a>
+    <a href="financial.html" class="nav-item">💰 Financeiro</a>
+    <a href="relatorios.html" class="nav-item">📈 Relatórios</a>
+    <a href="gestao.html" class="nav-item">👔 Gestão</a>
+    <a href="users.html" class="nav-item">👤 Usuários</a>
+    <a href="config.html" class="nav-item">⚙️ Configurações</a>
+  </div>
+  <div class="sidebar-footer">
+    <button class="btn-logout" id="btnLogout">← Sair do Sistema</button>
+  </div>
+</div>
+<div class="main">
+  <div class="page-header">
+    <div class="page-title">Dashboard</div>
+    <div class="page-sub">Visão geral do restaurante</div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-label">Faturamento Hoje</div><div class="stat-value" id="statRevenue">R$ 0,00</div></div>
+    <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-label">Pedidos Hoje</div><div class="stat-value" id="statOrders">0</div></div>
+    <div class="stat-card"><div class="stat-icon">🍽</div><div class="stat-label">Mesas Ocupadas</div><div class="stat-value" id="statTables">0</div></div>
+    <div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-label">Pedidos Ativos</div><div class="stat-value" id="statActive">0</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">📋 Pedidos Recentes</div>
+      <div id="recentOrders"><div class="empty-state"><div class="empty-icon">📋</div>Nenhum pedido hoje</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🏆 Top Produtos Hoje</div>
+      <div id="topProducts"><div class="empty-state"><div class="empty-icon">🍖</div>Sem dados ainda</div></div>
+    </div>
+  </div>
+</div>
+<script src="js/common.js"></script>
+<script src="js/alertas.js"></script>
+<script>
+const STATUS_MAP = {
+  PENDING:['badge-pending','Aguardando'],
+  PREPARING:['badge-preparing','Preparando'],
+  READY:['badge-ready','Pronto'],
+  CLOSED:['badge-closed','Fechado']
+};
+
+async function loadDashboard() {
+  const r = await apiCall('/dashboard/stats');
+  if (r?.ok) {
+    const s = r.data.stats;
+    document.getElementById('statRevenue').textContent = formatCurrency(s.todayRevenue);
+    document.getElementById('statOrders').textContent = s.todayOrders;
+    document.getElementById('statTables').textContent = s.occupiedTables;
+    document.getElementById('statActive').textContent = s.activeOrders;
+  }
+  const hoje = new Date().toISOString().split('T')[0];
+  const r2 = await apiCall('/orders?date=' + hoje);
+  if (r2?.ok) {
+    const orders = r2.data.orders.sort((a,b) => new Date(b.createdAt)-new Date(a.createdAt)).slice(0,8);
+    if (orders.length) {
+      document.getElementById('recentOrders').innerHTML = orders.map(o => {
+        const [cls, label] = STATUS_MAP[o.status] || ['badge-closed', o.status];
+        return `<div class="order-item">
+          <div class="order-table-num">${o.table?.number || '—'}</div>
+          <div class="order-info">
+            <div class="order-info-top">${o.table?.number ? 'Mesa '+o.table.number : (o.customerName||'Cliente')}</div>
+            <div class="order-info-sub">${formatDateTime(o.createdAt)}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="order-value">${formatCurrency(o.total)}</div>
+            <div class="badge ${cls}">${label}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+  }
+}
+
+const user = getUser();
+if (user) {
+  document.getElementById('userName').textContent = user.name;
+  document.getElementById('userRole').textContent = user.role;
+  document.getElementById('userAvatar').textContent = user.name[0];
+}
+document.getElementById('btnLogout').addEventListener('click', logout);
+loadDashboard();
+setInterval(loadDashboard, 30000);
+</script>
+
+
+</body></html>
