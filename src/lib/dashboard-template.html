@@ -107,8 +107,21 @@ document.getElementById('btnLogout').addEventListener('click', () => parent.post
 document.querySelectorAll('.nav-item').forEach(link => {
   link.addEventListener('click', event => {
     event.preventDefault();
-    if (!link.classList.contains('active')) alert('Esta página ainda não foi enviada.');
+    const destinations = {'pedidos.html':'pedidos','tables.html':'mesas','delivery-painel.html':'delivery','products.html':'produtos','promocoes.html':'promocoes','clientes.html':'clientes','financial.html':'financeiro','relatorios.html':'relatorios','gestao.html':'gestao','users.html':'usuarios','config.html':'configuracoes'};
+    const section = destinations[link.getAttribute('href')];
+    if (section) parent.postMessage({type:'brasa:navigate',section}, '*');
   });
+});
+window.addEventListener('message',event => {
+  if(event.source !== parent || event.data?.type !== 'brasa:stats') return;
+  const s=event.data;
+  document.getElementById('statRevenue').textContent=Number(s.revenue).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  document.getElementById('statOrders').textContent=s.orders;
+  document.getElementById('statTables').textContent=s.tables;
+  document.getElementById('statActive').textContent=s.active;
+  if(s.recent.length){const root=document.getElementById('recentOrders');root.replaceChildren();s.recent.forEach(r=>{const item=document.createElement('div');item.className='order-item';item.textContent=r.name+' · '+Number(r.price).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})+' · '+r.status;root.append(item);});}
+  const delivery=document.querySelector('a[href="delivery-painel.html"]');
+  if(delivery)delivery.textContent='🛵 Delivery'+(s.pending?' ('+s.pending+')':'');
 });
 </script>
 </body></html>

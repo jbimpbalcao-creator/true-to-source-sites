@@ -33,3 +33,4 @@ use the editor.
 - Keep the original dashboard HTML behind a session-checked server function, rendered in a sandboxed frame; this preserves the supplied design without exposing protected content as a public asset.
 - Fixed entry uses server-only credentials and an encrypted HttpOnly session; never use browser storage or the legacy missing login redirect as the access boundary.
 - Session cookies use Secure, SameSite=None and Partitioned to persist inside the cross-site Lovable preview without sharing sessions between embedding sites; keep CSRF middleware enabled.
+- Restaurant screens share a validated records module and a section route; database access is server-only after the encrypted entry gate, with no public Data API grants, because this app uses one shared entry rather than individual Cloud accounts.
