@@ -5,7 +5,7 @@ import { RestaurantPanel } from '@/components/restaurant-panel';
 import { Button } from '@/components/ui/button';
 export const Route = createFileRoute('/$section')({
  loader: async({params})=>{if(!sections.some(s=>s.slug===params.section))throw notFound();return listRecords();},
- head:({params})=>{const title=(sections.find(s=>s.slug===params.section)?.title??'Página')+' — Sabor na Brasa';const description='Gestão do restaurante Sabor na Brasa: '+(sections.find(s=>s.slug===params.section)?.title??'painel')+'.';return {meta:[{title},{name:'description',content:description},{property:'og:title',content:title},{property:'og:description',content:description},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'}]};},
+ head:({params})=>{const title=(sections.find(s=>s.slug===params.section)?.title??'Página')+' — Espeto Prime Espetaria';const description='Gestão do restaurante Espeto Prime Espetaria: '+(sections.find(s=>s.slug===params.section)?.title??'painel')+'.';return {meta:[{title},{name:'description',content:description},{property:'og:title',content:title},{property:'og:description',content:description},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'}]};},
  component:()=> <RestaurantPanel slug={Route.useParams().section} initialRows={Route.useLoaderData()}/>,
  errorComponent:ErrorPage,
  notFoundComponent:()=> <p>Página não encontrada.</p>,

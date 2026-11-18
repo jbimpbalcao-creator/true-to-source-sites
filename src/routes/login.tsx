@@ -1,3 +1,4 @@
+import logo from "@/assets/espeto-prime-logo.png.asset.json";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
@@ -7,10 +8,10 @@ import { gateSchema } from "@/lib/gate-schema";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [
-    { title: "Entrar — Sabor na Brasa" },
-    { name: "description", content: "Acesso ao painel Sabor na Brasa." },
-    { property: "og:title", content: "Entrar — Sabor na Brasa" },
-    { property: "og:description", content: "Acesso ao painel Sabor na Brasa." },
+    { title: "Entrar — Espeto Prime Espetaria" },
+    { name: "description", content: "Acesso ao painel Espeto Prime Espetaria." },
+    { property: "og:title", content: "Entrar — Espeto Prime Espetaria" },
+    { property: "og:description", content: "Acesso ao painel Espeto Prime Espetaria." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
   ] }),
@@ -39,7 +40,7 @@ function Login() {
   }
   return <main className="brasa-login">
     <form className="brasa-entry" onSubmit={submit}>
-      <h1>🔥 Sabor na Brasa</h1>
+      <img className="entry-logo" src={logo.url} alt="Espeto Prime Espetaria"/><h1>Espeto Prime <small>Espetaria</small></h1>
       <p>Painel de Gestão</p>
       <label htmlFor="username">Usuário</label>
       <input id="username" name="username" autoComplete="username" maxLength={100} required />
