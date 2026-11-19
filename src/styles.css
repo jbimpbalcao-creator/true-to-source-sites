@@ -245,3 +245,15 @@
 .section-note,.reset-section p { color:var(--muted-foreground);font-size:13px;margin:12px 0; }.reset-section { border-top:1px solid var(--border);margin-top:36px;padding-top:24px; }
 .is-collapsed .restaurant-sidebar { width:60px; }.is-collapsed .restaurant-sidebar span,.is-collapsed .restaurant-brand,.is-collapsed .restaurant-user,.is-collapsed nav small { display:none; }.is-collapsed .restaurant-main { margin-left:60px; }
 @media(max-width:700px){.restaurant-sidebar{width:60px}.restaurant-sidebar span,.restaurant-brand,.restaurant-user,.restaurant-sidebar nav small{display:none}.restaurant-main{margin-left:60px;padding:16px}.restaurant-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.restaurant-filters label{flex:1;min-width:120px}.restaurant-filters input{width:100%}.is-collapsed .restaurant-sidebar{width:200px}.is-collapsed .restaurant-sidebar span,.is-collapsed .restaurant-brand,.is-collapsed .restaurant-user,.is-collapsed nav small{display:block}.restaurant-main h1{font-size:20px}}
+.product-tile { overflow:hidden; }
+.product-photo { display:block;width:calc(100% + 36px);margin:-18px -18px 14px;height:150px;object-fit:cover; }
+.image-preview { display:flex;align-items:center;gap:10px; }.image-preview img { width:72px;height:72px;object-fit:cover;border-radius:6px; }
+.restaurant-grid:has(.table-tile) { grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px; }
+.table-tile { position:relative;padding:22px 10px 14px;border-radius:12px; }
+.table-tile.is-free { border-color:color-mix(in oklch,var(--success) 35%,transparent); }
+.table-tile.is-busy { border-color:color-mix(in oklch,var(--destructive) 50%,transparent); }
+.table-tile h2 { font-family:'Syne',sans-serif;font-size:30px;font-weight:800;line-height:1; }
+.table-tile p { margin:8px 0 4px; }.table-tile > small { color:var(--muted-foreground);font-size:11px; }
+.table-actions { display:flex;justify-content:center;gap:2px;margin-top:6px;opacity:.55; }.table-tile:hover .table-actions { opacity:1; }
+.table-actions button { width:28px;height:28px; }
+.restaurant-brand img { height:auto;max-height:90px; }

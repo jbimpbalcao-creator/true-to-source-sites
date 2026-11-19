@@ -17,6 +17,7 @@ export const recordData = z.object({
   tableId: z.string().max(40).default(''),
   items: z.array(z.object({ productId: z.string().uuid(), quantity: z.number().int().min(1).max(999) })).max(100).default([]),
   alerts: z.boolean().default(true),
+  image: z.string().max(400000).refine(v => v === '' || /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(v), 'Imagem inválida').default(''),
 });
 export type RecordData = z.infer<typeof recordData>;
 export type RestaurantRecord = { id: string; kind: Kind; data: RecordData; created_at: string };
@@ -46,4 +47,4 @@ export const sections = [
   { slug: 'gestao', title: 'Gestão', icon: '👔', kind: 'task' },
   { slug: 'usuarios', title: 'Usuários', icon: '👤', kind: 'staff' },
   { slug: 'configuracoes', title: 'Configurações', icon: '⚙️', kind: 'settings' },
-] as const;
+] as const;export function statusTone(status: string) { return ['Ativo','Livre','Concluído','Pronto'].includes(status) ? 'positive' : ['Ocupada','Reservada','Inativo','Cancelado'].includes(status) ? 'negative' : ''; }

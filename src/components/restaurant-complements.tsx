@@ -1,6 +1,6 @@
 import { Pencil, Trash2, CalendarDays } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { dateKey, money, filterRecords, type RestaurantRecord } from '@/lib/restaurant';
+import { dateKey, money, filterRecords, statusTone, type RestaurantRecord } from '@/lib/restaurant';
 
 export function PeriodShortcuts({onChange}:{onChange:(from:string,to:string)=>void}) {
  function select(days:number|'month') {
@@ -12,7 +12,7 @@ export function PeriodShortcuts({onChange}:{onChange:(from:string,to:string)=>vo
 }
 
 export function ProductGrid({rows,onEdit,onDelete}:{rows:RestaurantRecord[];onEdit:(r:RestaurantRecord)=>void;onDelete:(r:RestaurantRecord)=>void}) {
- return <div className="product-grid">{rows.map(r=><article key={r.id} className="product-tile"><div className="product-symbol" aria-hidden="true">{r.data.icon||'🍽'}</div><small>{r.data.category||'Outros'}</small><h2>{r.data.name}</h2><p>{r.data.notes||'—'}</p><span className="record-status">{r.data.status}</span><footer><strong>{money(r.data.price)}</strong><div><Button variant="secondary" size="icon" title="Editar produto" aria-label={`Editar ${r.data.name}`} onClick={()=>onEdit(r)}><Pencil/></Button><Button variant="secondary" size="icon" title="Excluir produto" aria-label={`Excluir ${r.data.name}`} onClick={()=>onDelete(r)}><Trash2/></Button></div></footer></article>)}</div>;
+ return <div className="product-grid">{rows.map(r=><article key={r.id} className="product-tile">{r.data.image?<img className="product-photo" src={r.data.image} alt={r.data.name}/>:<div className="product-symbol" aria-hidden="true">{r.data.icon||'🍽'}</div>}<small>{r.data.category||'Outros'}</small><h2>{r.data.name}</h2><p>{r.data.notes||'—'}</p><span className={`record-status ${statusTone(r.data.status)}`}>{r.data.status}</span><footer><strong className="positive">{money(r.data.price)}</strong><div><Button variant="secondary" size="icon" title="Editar produto" aria-label={`Editar ${r.data.name}`} onClick={()=>onEdit(r)}><Pencil/></Button><Button variant="secondary" size="icon" title="Excluir produto" aria-label={`Excluir ${r.data.name}`} onClick={()=>onDelete(r)}><Trash2/></Button></div></footer></article>)}</div>;
 }
 
 export function SectionSummary({slug,rows,from,to}:{slug:string;rows:RestaurantRecord[];from:string;to:string}) {

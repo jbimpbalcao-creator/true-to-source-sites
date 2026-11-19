@@ -9,10 +9,10 @@ import { sections, dateKey } from "@/lib/restaurant";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dashboard — Espeto Prime Espetaria" },
-      { name: "description", content: "Painel de gestão do restaurante Espeto Prime Espetaria." },
-      { property: "og:title", content: "Dashboard — Espeto Prime Espetaria" },
-      { property: "og:description", content: "Painel de gestão do restaurante Espeto Prime Espetaria." },
+      { title: "Dashboard — Espeto Prime" },
+      { name: "description", content: "Painel de gestão do restaurante Espeto Prime." },
+      { property: "og:title", content: "Dashboard — Espeto Prime" },
+      { property: "og:description", content: "Painel de gestão do restaurante Espeto Prime." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -64,5 +64,5 @@ function Index() {
     } catch { setError(true); }
   }
   useEffect(() => { const timer = setInterval(updateDashboard, 15000); return () => clearInterval(timer); }, [load]);
-  return <>{error && <p role="alert">Não foi possível atualizar o painel. Tente novamente.</p>}<iframe ref={frame} onLoad={updateDashboard} title="Dashboard — Espeto Prime Espetaria" srcDoc={html} sandbox="allow-scripts allow-top-navigation-by-user-activation" className="brasa-dashboard" /></>;
+  return <>{error && <p role="alert">Não foi possível atualizar o painel. Tente novamente.</p>}<iframe ref={frame} onLoad={updateDashboard} title="Dashboard — Espeto Prime" srcDoc={html} sandbox="allow-scripts allow-top-navigation-by-user-activation" className="brasa-dashboard" /></>;
 }
